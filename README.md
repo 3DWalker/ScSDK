@@ -29,7 +29,7 @@
 	cd <BUILD_DIR>
 	cmake <path-to-root-of-this-source-code> \
 		-DCMAKE_INSTALL_PREFIX=<path-to-install> \
-		-DSC_PROJECT_BUILD_ONLY="ScUtils"
+		-DSC_BUILD_ONLY="ScUtils"
 	cmake --build . --config=Debug
 	cmake --install . --config=Debug
    ```
