@@ -1,0 +1,4 @@
+# config.cmake.in - 模板文件，由 configure_package_config_file 生成 Config.cmake
+if(@PROJECT_NAME@_FOUND)
+	return()
+endif()

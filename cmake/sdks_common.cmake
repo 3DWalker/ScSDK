@@ -1,0 +1,32 @@
+set(SC_SDK_UTILS "ScUtils")
+set(SC_SDK_NETWORK "ScNetwork")
+
+function(sc_get_flatmp_value KEY VALUE_VAR)
+	set(${VALUE_VAR} "" PARENT_SCOPE)
+	set(RETURN_LIST "")
+    foreach(ELEMENT_PAIR ${ARGN})
+        STRING(REGEX REPLACE "([^:]+):.*" "\\1" KEY_RESULT ${ELEMENT_PAIR})
+        if(${KEY_RESULT} STREQUAL ${KEY} )
+            STRING(REGEX REPLACE "[^:]+:(.*)" "\\1" VALUE_RESULT ${ELEMENT_PAIR})
+            list(APPEND RETURN_LIST "${VALUE_RESULT}")
+        endif()
+    endforeach()
+	set(${VALUE_VAR} "${RETURN_LIST}" PARENT_SCOPE)
+endfunction()
+
+function(sc_get_dependencies_for_sdk PROJECT_NAME DEPENDENCY_LIST_VAR)
+	sc_get_flatmp_value(${PROJECT_NAME} TEMP_VAR ${SC_SDK_DEPENDENCY_LIST})
+	set(${DEPENDENCY_LIST_VAR} "${TEMP_VAR}" PARENT_SCOPE)
+endfunction()
+
+function(sc_get_dependencies_for_test TEST_NAME DEPENDENCY_LIST_VAR)
+	sc_get_flatmp_value(${TEST_NAME} TEMP_VAR ${SC_TEST_DEPENDENCY_LIST})
+	set(${DEPENDENCY_LIST_VAR} "${TEMP_VAR}" PARENT_SCOPE)
+endfunction()
+
+set(SC_SDK_DEPENDENCY_LIST "")
+list(APPEND SC_SDK_DEPENDENCY_LIST "${SC_SDK_NETWORK}:${SC_SDK_UTILS}")
+
+set(SC_TEST_DEPENDENCY_LIST "")
+list(APPEND SC_TEST_DEPENDENCY_LIST "${SC_SDK_UTILS}:${SC_SDK_UTILS}")
+list(APPEND SC_TEST_DEPENDENCY_LIST "${SC_SDK_NETWORK}:${SC_SDK_UTILS}")
