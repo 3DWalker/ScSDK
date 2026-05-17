@@ -13,6 +13,7 @@
 macro(sc_add_project name inc_dir description)
 	set(PROJECT_LIBS "${ARGN}")
 	set(SC_PROJECT_DIR ${CMAKE_CURRENT_LIST_DIR})
+	set(SC_INCLUDE_DIR "${inc_dir}")
 	
 	# Specify the project suffix under Debug configuration
 	if (NOT DEFINED CMAKE_DEBUG_POSTFIX)
@@ -65,7 +66,7 @@ macro(sc_add_project name inc_dir description)
 		endforeach()
 	endif()
 
-	sc_setup_install("${inc_dir}")
+	sc_setup_install("${SC_INCLUDE_DIR}")
 
 	sc_do_packaging()
 endmacro()

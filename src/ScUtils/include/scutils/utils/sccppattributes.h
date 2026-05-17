@@ -1,3 +1,7 @@
+#ifndef SCGLOBAL_H
+#   include "scutils/scglobal.h"
+#endif
+
 #ifndef SCCPPATTRIBUTES_H
 #define SCCPPATTRIBUTES_H
 

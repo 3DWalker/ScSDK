@@ -64,7 +64,7 @@ endfunction()
 set(SC_HEADER_EXTENSIONS "h" "hpp")
 
 # Specify the directory where the header file is located
-set(SC_HEADERS_DIR "${SC_PROJECT_DIR}/include/${SC_OUTPUT_NAME}")
+set(SC_HEADERS_DIR "${SC_PROJECT_DIR}/include/${SC_INCLUDE_DIR}")
 
 # Collect header files
 sc_collect_files(SC_HEADERS_ALL "Header Files" "${SC_HEADERS_DIR}" SC_HEADER_EXTENSIONS "")

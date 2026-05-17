@@ -227,4 +227,30 @@ constexpr inline const T& scBound(const T& min, const T& val, const T& max) { re
 
 class ScString;
 
+#if !(defined(_DEBUG) || !defined(NDEBUG))
+#	define SC_NO_DEBUG
+#endif
+
+SC_DECL_COLD_FUNCTION
+SC_API_EXPORT void sc_assert(const char* assertion, const char* file, int line) noexcept;
+
+#if !defined(SC_ASSERT)
+#	if defined(SC_NO_DEBUG)
+#		define SC_ASSERT(cond) static_cast<void>(false && (cond))
+#	else
+#		define SC_ASSERT(cond) ((cond) ? static_cast<void>(0) : sc_assert(#cond, __FILE__, __LINE__))
+#	endif
+#endif
+
+SC_DECL_COLD_FUNCTION
+SC_API_EXPORT void sc_assert_x(const char* where, const char* what, const char* file, int line) noexcept;
+
+#if !defined(SC_ASSERT_X)
+#	if defined(SC_NO_DEBUG)
+#		define SC_ASSERT_X(cond, where, what) static_cast<void>(false && (cond))
+#	else
+#		define SC_ASSERT_X(cond, where, what) ((cond) ? static_cast<void>(0) : sc_assert_x(where, what, __FILE__, __LINE__))
+#	endif
+#endif
+
 #endif // SCGLOBAL_H
